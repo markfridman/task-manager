@@ -1,59 +1,63 @@
 import React from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { Box, Alert, Typography, Button } from '@mui/material';
+import { useSetRecoilState } from 'recoil';
+import { Box, Alert, Typography, Button, CircularProgress } from '@mui/material';
 import { selectedTaskIdState } from '../../recoil/atoms';
-import { useTasks } from '../../hooks/useTasks';
 import TaskItem from './TaskItem';
-import TaskFilters from '../TaskFilters/TaskFilters';
-import TaskFormModal from '../TaskForm/TaskFormModal';
-import Pagination from '../Pagination';
+import { Task } from '../../types/task';
 
-const TaskList: React.FC = () => {
-  const { 
-    tasks,
-    loading,
-    error,
-    refreshTasks,
-    deleteTask,
-    pagination: { totalPages, totalItems }
-  } = useTasks();
+interface TaskListProps {
+  tasks: Task[];
+  loading: boolean;
+  error: string | null;
+  deleteTask: (taskId: string) => Promise<void>;
+}
+
+const TaskList: React.FC<TaskListProps> = ({ tasks, loading, error, deleteTask }) => {
   const setSelectedTaskId = useSetRecoilState(selectedTaskIdState);
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert 
+        severity="error" 
+        action={
+          <Button color="inherit" size="small" onClick={() => window.location.reload()}>
+            Retry
+          </Button>
+        }
+      >
+        {error}
+      </Alert>
+    );
+  }
+
+  if (!tasks.length) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+        <Typography variant="h6" color="text.secondary">
+          No tasks found
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box>
-      <Box mt={2}>
-        {error ? (
-          <Alert 
-            severity="error" 
-            action={
-              <Button color="inherit" size="small" onClick={refreshTasks}>
-                Retry
-              </Button>
-            }
-          >
-            {error}
-          </Alert>
-        ) : tasks.length === 0 && !loading ? (
-          <Typography variant="h6" textAlign="center" color="text.secondary">
-            No tasks found
-          </Typography>
-        ) : (
-          tasks.map(task => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              onSelect={() => setSelectedTaskId(task.id)}
-              onDelete={deleteTask}
-            />
-          ))
-        )}
-      </Box>
-      <Pagination 
-        totalPages={totalPages} 
-        totalItems={totalItems}
-        loading={loading}
-      />
-      <TaskFormModal />
+      {tasks.map(task => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          onSelect={() => setSelectedTaskId(task.id)}
+          onDelete={deleteTask}
+        />
+      ))}
     </Box>
   );
 };

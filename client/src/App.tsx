@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { theme } from './theme';
-import { TasksWrapper } from './components/TasksWrapper/TasksWrapper';
+import TasksWrapper from './components/TasksWrapper/TasksWrapper';
 
 function App() {
   return (
