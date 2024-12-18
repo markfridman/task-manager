@@ -11,7 +11,7 @@ export interface Task {
   taskOwner: string;
   priority: TaskPriority;
   tags: string[];
-  userId?: string; // Reference to the user who created the task
+  userId?: string;
 }
 
 export interface CreateTaskDto extends Omit<Task, 'id' | 'creationTime' | 'userId'> {}
