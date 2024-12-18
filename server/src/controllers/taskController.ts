@@ -34,7 +34,7 @@ export class TaskController {
       const result = await this.taskService.getTasks(
         filters,
         pagination,
-        req.user!.id
+        // req.user!.id
       );
 
       res.json({
@@ -71,7 +71,7 @@ export class TaskController {
     try {
       const task = await this.taskService.createTask({
         ...req.body,
-        userId: req.user!.id,
+        // userId: req.user!.id,
       });
       res.status(201).json({ success: true, data: task });
     } catch (error) {

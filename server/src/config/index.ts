@@ -7,8 +7,8 @@ export const config: AppConfig = {
   port: parseInt(process.env.PORT || '3000', 10),
   environment: (process.env.NODE_ENV as AppConfig['environment']) || 'development',
   database: {
-    filePath: process.env.DB_FILE_PATH || './_mockDB/tasks.json',
-    backupPath: process.env.DB_BACKUP_PATH || './_mockDB/backup/',
+    filePath: process.env.DB_FILE_PATH || './server/_mockDB/tasks.json',
+    backupPath: process.env.DB_BACKUP_PATH || './server/_mockDB/backup/',
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'your-secret-key',

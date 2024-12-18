@@ -26,7 +26,8 @@ Database.getInstance().catch((error) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/tasks', authMiddleware, taskRoutes);
+app.use('/api/tasks', taskRoutes);
+// app.use('/api/tasks', authMiddleware, taskRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

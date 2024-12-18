@@ -8,9 +8,13 @@ export class TaskService {
   async getTasks(
     filters: TaskFilters,
     pagination: PaginationParams,
-    userId: string
+    // userId: string
   ): Promise<PaginatedResponse<Task>> {
-    const { tasks, total } = await TaskModel.findWithFilters(userId, filters, pagination);
+    const { tasks, total } = await TaskModel.findWithFilters(
+      // userId, 
+        filters,
+       pagination
+      );
 
     const totalPages = Math.ceil(total / pagination.limit);
     
@@ -35,7 +39,11 @@ export class TaskService {
     return task;
   }
 
-  async createTask(data: CreateTaskDto & { userId: string }): Promise<Task> {
+  async createTask(
+    data: CreateTaskDto 
+    // & { userId: string }
+
+  ): Promise<Task> {
     // Validate due date
     if (new Date(data.dueDate) < new Date()) {
       throw new AppError(400, 'Due date cannot be in the past', 'VALIDATION_ERROR');
