@@ -52,15 +52,24 @@ Notification state
 
 Install dependencies:
 
-bashnpm install
+npm run install:all
 
 Set up environment variables:
 
-envVITE_API_URL=http://localhost:3000/api
+.env in client folder:VITE_API_URL=http://localhost:3000/api
 
-Start development server:
+.env in server folder:
+PORT=3000
+NODE_ENV=development
+DB_FILE_PATH=./_mockDB/tasks.json
+DB_BACKUP_PATH=./_mockDB/backup/
 
-bashnpm run dev
+
+Start development server concurrently from root directory run:
+
+npm run dev
+
+
 
 Backend (Node.js + Express + TypeScript)
 Architecture
@@ -95,21 +104,7 @@ Input validation
 Type checking
 Request sanitization
 
-## Setup & Running
 
-Install dependencies:
-
-npm install
-
-Set up environment variables:
-
-envPORT=3000
-NODE_ENV=development
-JWT_SECRET=your-secret-key
-
-Start development server:
-
-bashnpm run dev
 API Endpoints
 Tasks
 GET    /api/tasks       - Get all tasks (with filtering & pagination)
