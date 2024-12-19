@@ -22,6 +22,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onSelect }) => {
       case 'High': return 'error';
       case 'Medium': return 'warning';
       case 'Low': return 'success';
+      case 'Critical': return 'error';
       default: return 'default';
     }
   };
