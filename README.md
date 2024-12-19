@@ -11,8 +11,6 @@ Vite as build tool
 Axios for API requests
 Date-fns for date manipulation
 
-
-
 # Frontend Project Structure
 client/
 ├── src/
@@ -101,7 +99,6 @@ JWT for authentication
 Express middleware for request handling
 
 
-
 # Backend Project Structure
 server/
 ├── src/
@@ -145,7 +142,7 @@ Request sanitization
 
 Install dependencies:
 
-bashnpm install
+npm install
 
 Set up environment variables:
 

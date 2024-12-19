@@ -32,7 +32,7 @@ const TaskWrapper: React.FC = () => {
         <TaskFilters loading={loading} />
         <Grid container sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', msFlexDirection: 'row' }}>
 
-          <Grid item xs={12} md={8} sx={{ mt: 2, maxHeight: '70vh', overflowY: 'auto' }}>
+          <Grid item xs={12} md={8} sx={{ mt: 2, height: '70vh', maxHeight: '70vh', overflowY: 'auto' }}>
             {/* Task List Column */}
             <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 2 }}>
               <TaskList />
