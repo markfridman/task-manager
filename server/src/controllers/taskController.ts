@@ -55,7 +55,7 @@ export class TaskController {
     try {
       const task = await this.taskService.getTaskById(
         req.params.id,
-        req.user!.id
+        // req.user!.id
       );
       res.json({ success: true, data: task });
     } catch (error) {

@@ -14,7 +14,10 @@ export class TaskModel {
     // .filter(task => task.userId === userId);
   }
 
-  static async findById(id: string, userId: string): Promise<Task | null> {
+  static async findById(
+    id: string, 
+    // userId: string
+  ): Promise<Task | null> {
     const db = await this.getDb();
     return db.getTasks().find(task => task.id === id
       // && task.userId === userId

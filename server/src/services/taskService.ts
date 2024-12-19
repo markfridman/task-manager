@@ -31,8 +31,14 @@ export class TaskService {
     };
   }
 
-  async getTaskById(id: string, userId: string): Promise<Task> {
-    const task = await TaskModel.findById(id, userId);
+  async getTaskById(
+    id: string, 
+    // userId: string
+  ): Promise<Task> {
+    const task = await TaskModel.findById(
+      id, 
+      // userId
+    );
     if (!task) {
       throw new AppError(404, 'Task not found', 'TASK_NOT_FOUND');
     }
