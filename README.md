@@ -2,7 +2,7 @@ Task Management Application
 Frontend (React + TypeScript)
 Architecture
 
-# Technology Stack:
+## Technology Stack:
 
 React with TypeScript
 Material-UI v5 for UI components
@@ -11,35 +11,10 @@ Vite as build tool
 Axios for API requests
 Date-fns for date manipulation
 
-# Frontend Project Structure
-client/
-├── src/
-│   ├── components/
-│   │   ├── TaskWrapper/      # Main container component
-│   │   ├── TaskList/         # Task listing and item components
-│   │   ├── TaskCreation/     # New task creation form
-│   │   ├── TaskFilters/      # Search and filtering components
-│   │   ├── TaskForm/         # Edit task modal
-│   │   └── NotificationCenter/ # Global notification system
-│   ├── constants/
-│   │   └── task.ts          # Task-related constants and enums
-│   ├── hooks/
-│   │   ├── useTasks.ts      # Task operations hook
-│   │   ├── useNotification.ts # Notification system hook
-│   │   └── useDebounce.ts   # Debounce hook for search
-│   ├── recoil/
-│   │   └── atoms.ts         # Global state definitions
-│   ├── services/
-│   │   └── api.ts           # API service layer
-│   ├── types/
-│   │   ├── task.ts          # Task-related types
-│   │   └── notification.ts   # Notification types
-│   └── utils/
-│       └── date.ts          # Date utility functions
 
 ## Features
 
-# Task Management
+## Task Management
 
 View list of tasks with pagination
 Create new tasks with form validation
@@ -48,7 +23,7 @@ Delete tasks
 Tags management
 
 
-# Filtering & Search
+## Filtering & Search
 
 Search tasks with debouncing
 Filter by status and priority
@@ -56,7 +31,7 @@ Sort by different fields
 Date range filtering
 
 
-# User Interface
+## User Interface
 
 Responsive design
 Loading states
@@ -66,14 +41,14 @@ Form validation
 Date picker
 
 
-# State Management (Recoil)
+## State Management (Recoil)
 
 Task state
 Filter state
 Pagination state
 Notification state
 
-# Setup & Running
+## Setup & Running
 
 Install dependencies:
 
@@ -90,7 +65,7 @@ bashnpm run dev
 Backend (Node.js + Express + TypeScript)
 Architecture
 
-# Technology Stack:
+## Technology Stack:
 
 Node.js with TypeScript
 Express.js framework
@@ -99,25 +74,7 @@ JWT for authentication
 Express middleware for request handling
 
 
-# Backend Project Structure
-server/
-├── src/
-│   ├── config/             # Configuration files
-│   ├── controllers/        # Request handlers
-|   │-- constants/          # Constants
-│   ├── middleware/         # Custom middleware
-│   │   ├── auth.ts        # Authentication middleware
-│   │   ├── error.ts       # Error handling
-│   │   └── validate.ts    # Request validation
-│   ├── models/            # Data models
-│   ├── routes/            # Route definitions
-│   ├── services/          # Business logic
-│   ├── types/             # TypeScript types
-│   └── utils/             # Utility functions
-└── _mockDB/              # Mock database files
-Features
-
-# RESTful API Endpoints
+## RESTful API Endpoints
 
 GET /tasks - List tasks with pagination
 GET /tasks/:id - Get single task
@@ -125,7 +82,7 @@ POST /tasks - Create task
 PUT /tasks/:id - Update task
 DELETE /tasks/:id - Delete task
 
-# Error Handling
+## Error Handling
 
 Centralized error handling
 Validation errors
@@ -138,7 +95,7 @@ Input validation
 Type checking
 Request sanitization
 
-# Setup & Running
+## Setup & Running
 
 Install dependencies:
 
