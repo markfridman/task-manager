@@ -8,40 +8,46 @@ import TaskCreationForm from '../TaskCreation/TaskCreationForm';
 import { useTasks } from '../../hooks/useTasks';
 
 const TaskWrapper: React.FC = () => {
-  const { 
-    loading, 
-
+  const {
+    loading,
   } = useTasks();
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Box mb={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Task Management
-        </Typography>
-      </Box>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ minHeight: '100vh', width: '100%' }}
+    >
 
-      <TaskFilters loading={loading} />
+      <Container maxWidth="xl" sx={{ py: 4 }} >
+        <Box mb={4}>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Task Management
+          </Typography>
+        </Box>
 
-      <Grid container spacing={3} sx={{ mt: 2 }}>
-        {/* Task List Column */}
-        <Grid item xs={12} md={8}>
-          <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 2 }}>
-            <TaskList />
-            <Box mt={2}>
-              <Pagination />
+        <TaskFilters loading={loading} />
+        <Grid container sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', msFlexDirection: 'row' }}>
+
+          <Grid item xs={12} md={8} sx={{ mt: 2, maxHeight: '70vh', overflowY: 'auto' }}>
+            {/* Task List Column */}
+            <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 2 }}>
+              <TaskList />
             </Box>
-          </Box>
+            {/* Task Creation Form Column */}
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TaskCreationForm />
+          </Grid>
         </Grid>
+        <Pagination />
 
-        {/* Task Creation Form Column */}
-        <Grid item xs={12} md={4}>
-          <TaskCreationForm />
-        </Grid>
-      </Grid>
-
-      <TaskFormModal />
-    </Container>
+        <TaskFormModal />
+      </Container>
+    </Grid>
   );
 };
 
