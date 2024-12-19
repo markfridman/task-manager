@@ -10,10 +10,9 @@ import {
   Stack,
   Box,
   Chip,
-  IconButton,
 } from '@mui/material';
+
 import { DatePicker } from '@mui/x-date-pickers';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedTaskIdState, tasksState } from '../../recoil/atoms';
 import { TaskPriority, TaskStatus, UpdateTaskDto } from '../../types/task';
@@ -29,10 +28,10 @@ const TaskFormModal: React.FC = () => {
   const [isChanged, setIsChanged] = React.useState(false);
   const tasks = useRecoilValue(tasksState);
   const { updateTask, deleteTask } = useTasks();
-  const { showSuccess, showError, showWarning} = useNotification();
+  const { showSuccess, showError, showWarning } = useNotification();
 
   const selectedTask = tasks.find(task => task.id === selectedTaskId);
-  
+
   const [formData, setFormData] = React.useState<UpdateTaskDto>({
     title: '',
     description: '',
@@ -83,7 +82,7 @@ const TaskFormModal: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if(!isChanged) showWarning('No changes detected');
+    if (!isChanged) showWarning('No changes detected');
     if (selectedTaskId && isChanged) {
       try {
         await updateTask(selectedTaskId, formData);
@@ -106,7 +105,7 @@ const TaskFormModal: React.FC = () => {
     }));
     setIsChanged(true);
   };
-  
+
   const handleTaskDelete = async () => {
     if (selectedTaskId) {
       try {
@@ -199,17 +198,18 @@ const TaskFormModal: React.FC = () => {
             </Box>
           </Stack>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit" variant="contained" color="primary">
-            Save Changes
-          </Button>
-          <Box>
-            {selectedTaskId && (
-              <IconButton size="small" color="error" onClick={() => handleTaskDelete()}>
-                <DeleteIcon />
-              </IconButton>
-            )}
+        <DialogActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          {selectedTaskId &&
+            (<Box p={2} >
+              <Button color="error" onClick={() => handleTaskDelete()}> Delete</Button>
+            </Box>
+            )
+          }
+          <Box p={2} sx={{ display: 'flex', gap: 2 }}>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit" variant="contained" color="primary">
+              Save Changes
+            </Button>
           </Box>
         </DialogActions>
       </form>
