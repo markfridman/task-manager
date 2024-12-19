@@ -16,9 +16,10 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedTaskIdState, tasksState } from '../../recoil/atoms';
 import { TaskPriority, TaskStatus, UpdateTaskDto } from '../../types/task';
 import { useTasks } from '../../hooks/useTasks';
+import { TASK_PRIORITIES, TASK_STATUSES } from '../../constants/task';
 
-const statusOptions: TaskStatus[] = ['To Do', 'In Progress', 'Completed'];
-const priorityOptions: TaskPriority[] = ['Low', 'Medium', 'High'];
+const statusOptions: TaskStatus[] = TASK_STATUSES;
+const priorityOptions: TaskPriority[] = TASK_PRIORITIES;
 
 const TaskFormModal: React.FC = () => {
   const [selectedTaskId, setSelectedTaskId] = useRecoilState(selectedTaskIdState);

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { CreateTaskDto, UpdateTaskDto } from '../types/task';
 import { CreateUserDto, LoginDto } from '../types/user';
 import { AppError } from '../types/error';
+import { TASK_PRIORITIES, TASK_STATUSES } from '../constants/task';
 
 export const validateTask = (
   req: Request<{}, {}, CreateTaskDto | UpdateTaskDto>,
@@ -22,11 +23,11 @@ export const validateTask = (
     throw new AppError(400, 'Title must be a string', 'VALIDATION_ERROR');
   }
 
-  if (task.priority && !['Low', 'Medium', 'High'].includes(task.priority)) {
+  if (task.priority && !TASK_PRIORITIES.includes(task.priority)) {
     throw new AppError(400, 'Invalid priority value', 'VALIDATION_ERROR');
   }
 
-  if (task.status && !['To Do', 'In Progress', 'Completed'].includes(task.status)) {
+  if (task.status && !TASK_STATUSES.includes(task.status)) {
     throw new AppError(400, 'Invalid status value', 'VALIDATION_ERROR');
   }
 

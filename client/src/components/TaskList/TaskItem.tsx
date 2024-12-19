@@ -28,16 +28,16 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onSelect, onDelete }) => {
   };
 
   return (
-    <Card sx={{ mb: 2, '&:hover': { boxShadow: 3 } }}>
+    <Card sx={{ mb: 2, '&:hover': { boxShadow: 3 } }} onClick={onSelect}>
       <CardContent>
         <Box display="flex" justifyContent="space-between" alignItems="flex-start">
           <Box flex={1}>
             <Typography variant="h6" gutterBottom>
               {task.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary" noWrap sx={{ mb: 1 }}>
+            {/* <Typography variant="body2" color="text.secondary" noWrap sx={{ mb: 1 }}>
               {task.description}
-            </Typography>
+            </Typography> */}
             <Stack direction="row" spacing={1} alignItems="center">
               <Chip
                 size="small"
@@ -55,9 +55,6 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onSelect, onDelete }) => {
             </Stack>
           </Box>
           <Box>
-            <IconButton size="small" onClick={onSelect}>
-              <EditIcon />
-            </IconButton>
             {onDelete && (
               <IconButton size="small" color="error" onClick={() => onDelete(task.id)}>
                 <DeleteIcon />

@@ -20,9 +20,10 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { taskFiltersState, paginationState } from '../../recoil/atoms';
 import { TaskStatus, TaskPriority } from '../../types/task';
 import { useDebounce } from '../../hooks/useDebounce';
+import { TASK_PRIORITIES, TASK_STATUSES } from '../../constants/task';
 
-const statusOptions: TaskStatus[] = ['To Do', 'In Progress', 'Completed'];
-const priorityOptions: TaskPriority[] = ['Low', 'Medium', 'High'];
+const statusOptions: TaskStatus[] = TASK_STATUSES;
+const priorityOptions: TaskPriority[] = TASK_PRIORITIES;
 const sortByOptions = [
   { value: 'dueDate', label: 'Due Date' },
   { value: 'priority', label: 'Priority' },
