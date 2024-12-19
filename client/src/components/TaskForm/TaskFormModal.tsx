@@ -25,6 +25,7 @@ const priorityOptions: TaskPriority[] = TASK_PRIORITIES;
 
 const TaskFormModal: React.FC = () => {
   const [selectedTaskId, setSelectedTaskId] = useRecoilState(selectedTaskIdState);
+  const [ tagInput ,setTagInput ] = React.useState('');
   const [isChanged, setIsChanged] = React.useState(false);
   const tasks = useRecoilValue(tasksState);
   const { updateTask, deleteTask } = useTasks();
@@ -80,7 +81,7 @@ const TaskFormModal: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isChanged) showWarning('No changes detected');
     if (selectedTaskId && isChanged) {
@@ -119,17 +120,18 @@ const TaskFormModal: React.FC = () => {
   }
 
   const handleTagAdd = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && event.currentTarget.value) {
+    if (event.key === 'Enter' && tagInput && !formData.tags?.includes(tagInput.trim())) {
       event.preventDefault();
-      const newTag = event.currentTarget.value;
+      const newTag = tagInput;
       setFormData(prev => ({
         ...prev,
         tags: [...(prev.tags || []), newTag],
       }));
-      event.currentTarget.value = '';
+      setTagInput('');
       setIsChanged(true);
     }
   };
+  
 
   return (
     <Dialog open={!!selectedTaskId} onClose={handleClose} maxWidth="sm" fullWidth>
@@ -143,6 +145,11 @@ const TaskFormModal: React.FC = () => {
               onChange={handleChange('title')}
               required
               fullWidth
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+              }}
             />
             <TextField
               label="Description"
@@ -151,6 +158,11 @@ const TaskFormModal: React.FC = () => {
               multiline
               rows={4}
               fullWidth
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+              }}
             />
             <DatePicker
               label="Due Date"
@@ -164,6 +176,11 @@ const TaskFormModal: React.FC = () => {
               value={formData.status}
               onChange={handleChange('status')}
               fullWidth
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+              }}
             >
               {statusOptions.map(option => (
                 <MenuItem key={option} value={option}>{option}</MenuItem>
@@ -175,6 +192,11 @@ const TaskFormModal: React.FC = () => {
               value={formData.priority}
               onChange={handleChange('priority')}
               fullWidth
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+              }}
             >
               {priorityOptions.map(option => (
                 <MenuItem key={option} value={option}>{option}</MenuItem>
@@ -183,8 +205,18 @@ const TaskFormModal: React.FC = () => {
             <Box>
               <TextField
                 label="Add Tags (Press Enter)"
-                onKeyPress={handleTagAdd}
+                onChange={(e) => setTagInput(e.target.value)}
+                value={tagInput}
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (tagInput.trim()) {
+                      handleTagAdd(e);
+                    }
+                  }
+                }}
                 fullWidth
+                
               />
               <Box sx={{ mt: 1, display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 {formData.tags?.map(tag => (
