@@ -3,7 +3,7 @@ import { TaskFilters } from '../types/filter';
 export const validateFilters = (filters: Partial<TaskFilters>): TaskFilters => {
   const validatedFilters: TaskFilters = {};
 
-  if (filters.status && ['Pending', 'In Progress', 'Completed'].includes(filters.status)) {
+  if (filters.status && ['To Do', 'In Progress', 'Completed'].includes(filters.status)) {
     validatedFilters.status = filters.status;
   }
 

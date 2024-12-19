@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, Container, Paper, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import TaskList from '../TaskList/TaskList';
 import TaskFilters from '../TaskFilters/TaskFilters';
 import Pagination from '../Pagination';
 import TaskFormModal from '../TaskForm/TaskFormModal';
+import TaskCreationForm from '../TaskCreation/TaskCreationForm';
 import { useTasks } from '../../hooks/useTasks';
 
 const TaskWrapper: React.FC = () => {
@@ -16,33 +17,40 @@ const TaskWrapper: React.FC = () => {
   } = useTasks();
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: 4 }}>
       <Box mb={4}>
         <Typography variant="h4" component="h1" gutterBottom>
           Task Management
         </Typography>
       </Box>
 
-      <Paper sx={{ p: 2, mb: 3 }}>
-        <TaskFilters loading={loading} />
-      </Paper>
+      <TaskFilters loading={loading} />
 
-      <Paper sx={{ p: 2, minHeight: '60vh' }}>
-        <TaskList 
-          tasks={tasks}
-          loading={loading}
-          error={error}
-          deleteTask={deleteTask}
-        />
+      <Grid container spacing={3} sx={{ mt: 2 }}>
+        {/* Task List Column */}
+        <Grid item xs={12} md={8}>
+          <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 2 }}>
+            <TaskList 
+              tasks={tasks}
+              loading={loading}
+              error={error}
+              deleteTask={deleteTask}
+            />
+            <Box mt={2}>
+              <Pagination 
+                totalPages={totalPages}
+                totalItems={totalItems}
+                loading={loading}
+              />
+            </Box>
+          </Box>
+        </Grid>
 
-        <Box mt={2}>
-          <Pagination 
-            totalPages={totalPages}
-            totalItems={totalItems}
-            loading={loading}
-          />
-        </Box>
-      </Paper>
+        {/* Task Creation Form Column */}
+        <Grid item xs={12} md={4}>
+          <TaskCreationForm />
+        </Grid>
+      </Grid>
 
       <TaskFormModal />
     </Container>

@@ -68,7 +68,7 @@ export const taskStatsSelector = selector({
     
     return {
       total: tasks.length,
-      pending: tasks.filter(task => task.status === 'To Do').length,
+      toDo: tasks.filter(task => task.status === 'To Do').length,
       inProgress: tasks.filter(task => task.status === 'In Progress').length,
       completed: tasks.filter(task => task.status === 'Completed').length,
       highPriority: tasks.filter(task => task.priority === 'High').length,

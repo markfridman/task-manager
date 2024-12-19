@@ -26,7 +26,7 @@ export const validateTask = (
     throw new AppError(400, 'Invalid priority value', 'VALIDATION_ERROR');
   }
 
-  if (task.status && !['Pending', 'In Progress', 'Completed'].includes(task.status)) {
+  if (task.status && !['To Do', 'In Progress', 'Completed'].includes(task.status)) {
     throw new AppError(400, 'Invalid status value', 'VALIDATION_ERROR');
   }
 
