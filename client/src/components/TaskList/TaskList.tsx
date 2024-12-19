@@ -3,17 +3,13 @@ import { useSetRecoilState } from 'recoil';
 import { Box, Alert, Typography, Button, CircularProgress } from '@mui/material';
 import { selectedTaskIdState } from '../../recoil/atoms';
 import TaskItem from './TaskItem';
-import { Task } from '../../types/task';
 
-interface TaskListProps {
-  tasks: Task[];
-  loading: boolean;
-  error: string | null;
-  deleteTask: (taskId: string) => Promise<void>;
-}
+import { useTasks } from '../../hooks/useTasks';
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, loading, error, deleteTask }) => {
+
+const TaskList: React.FC = () => {
   const setSelectedTaskId = useSetRecoilState(selectedTaskIdState);
+  const { loading, error, tasks } = useTasks();
 
   if (loading) {
     return (
@@ -55,7 +51,6 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, loading, error, deleteTask }
           key={task.id}
           task={task}
           onSelect={() => setSelectedTaskId(task.id)}
-          onDelete={deleteTask}
         />
       ))}
     </Box>

@@ -12,12 +12,12 @@ export class TaskService {
   ): Promise<PaginatedResponse<Task>> {
     const { tasks, total } = await TaskModel.findWithFilters(
       // userId, 
-        filters,
-       pagination
-      );
+      filters,
+      pagination
+    );
 
     const totalPages = Math.ceil(total / pagination.limit);
-    
+
     return {
       data: tasks,
       pagination: {
@@ -40,7 +40,7 @@ export class TaskService {
   }
 
   async createTask(
-    data: CreateTaskDto 
+    data: CreateTaskDto
     // & { userId: string }
 
   ): Promise<Task> {
@@ -55,18 +55,30 @@ export class TaskService {
   async updateTask(
     id: string,
     data: UpdateTaskDto,
-    userId: string
+    // userId: string
   ): Promise<Task> {
-    const task = await this.getTaskById(id, userId);
+    const task = await this.getTaskById(
+      id,
+      // userId
+    );
 
     if (data.dueDate && new Date(data.dueDate) < new Date()) {
       throw new AppError(400, 'Due date cannot be in the past', 'VALIDATION_ERROR');
     }
 
-    return await TaskModel.update(id, userId, data);
+    return await TaskModel.update(
+      id,
+      // userId,
+      data);
   }
 
-  async deleteTask(id: string, userId: string): Promise<void> {
-    await TaskModel.delete(id, userId);
+  async deleteTask(
+    id: string,
+    // userId: string
+  ): Promise<void> {
+    await TaskModel.delete(
+      id,
+      // userId
+    );
   }
 }

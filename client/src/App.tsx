@@ -6,6 +6,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { theme } from './theme';
 import TasksWrapper from './components/TasksWrapper/TasksWrapper';
+import { NotificationCenter } from './components/Notifications/NotificationCenter';
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <CssBaseline />
           <TasksWrapper />
+          <NotificationCenter />
         </LocalizationProvider>
       </ThemeProvider>
     </RecoilRoot>

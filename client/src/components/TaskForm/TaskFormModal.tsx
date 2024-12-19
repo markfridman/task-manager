@@ -10,21 +10,27 @@ import {
   Stack,
   Box,
   Chip,
+  IconButton,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedTaskIdState, tasksState } from '../../recoil/atoms';
 import { TaskPriority, TaskStatus, UpdateTaskDto } from '../../types/task';
 import { useTasks } from '../../hooks/useTasks';
 import { TASK_PRIORITIES, TASK_STATUSES } from '../../constants/task';
+import { useNotification } from '../../hooks/useNotification';
 
 const statusOptions: TaskStatus[] = TASK_STATUSES;
 const priorityOptions: TaskPriority[] = TASK_PRIORITIES;
 
 const TaskFormModal: React.FC = () => {
   const [selectedTaskId, setSelectedTaskId] = useRecoilState(selectedTaskIdState);
+  const [isChanged, setIsChanged] = React.useState(false);
   const tasks = useRecoilValue(tasksState);
-  const { updateTask } = useTasks();
+  const { updateTask, deleteTask } = useTasks();
+  const { showSuccess, showError, showWarning} = useNotification();
+
   const selectedTask = tasks.find(task => task.id === selectedTaskId);
   
   const [formData, setFormData] = React.useState<UpdateTaskDto>({
@@ -65,22 +71,30 @@ const TaskFormModal: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setFormData(prev => ({ ...prev, [field]: event.target.value }));
+    setIsChanged(true);
   };
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
       setFormData(prev => ({ ...prev, dueDate: date.toISOString() }));
+      setIsChanged(true);
     }
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (selectedTaskId) {
+    if(!isChanged) showWarning('No changes detected');
+    if (selectedTaskId && isChanged) {
       try {
         await updateTask(selectedTaskId, formData);
         handleClose();
+        showSuccess('Task updated successfully');
       } catch (error) {
+        showError('Failed to update task');
         console.error('Failed to update task:', error);
+        handleClose();
+      } finally {
+        setIsChanged(false);
       }
     }
   };
@@ -90,7 +104,20 @@ const TaskFormModal: React.FC = () => {
       ...prev,
       tags: prev.tags?.filter(tag => tag !== tagToDelete) || [],
     }));
+    setIsChanged(true);
   };
+  
+  const handleTaskDelete = async () => {
+    if (selectedTaskId) {
+      try {
+        await deleteTask(selectedTaskId);
+        handleClose();
+      } catch (error) {
+        showError('Failed to update task');
+        console.error('Failed to update task:', error);
+      }
+    }
+  }
 
   const handleTagAdd = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && event.currentTarget.value) {
@@ -101,6 +128,7 @@ const TaskFormModal: React.FC = () => {
         tags: [...(prev.tags || []), newTag],
       }));
       event.currentTarget.value = '';
+      setIsChanged(true);
     }
   };
 
@@ -176,6 +204,13 @@ const TaskFormModal: React.FC = () => {
           <Button type="submit" variant="contained" color="primary">
             Save Changes
           </Button>
+          <Box>
+            {selectedTaskId && (
+              <IconButton size="small" color="error" onClick={() => handleTaskDelete()}>
+                <DeleteIcon />
+              </IconButton>
+            )}
+          </Box>
         </DialogActions>
       </form>
     </Dialog>

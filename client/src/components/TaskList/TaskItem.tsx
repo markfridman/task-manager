@@ -14,10 +14,9 @@ import { Task } from '../../types/task';
 export interface TaskItemProps {
   task: Task;
   onSelect: () => void;
-  onDelete?: (id: string) => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onSelect, onDelete }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, onSelect }) => {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'High': return 'error';
@@ -54,13 +53,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onSelect, onDelete }) => {
               </Typography>
             </Stack>
           </Box>
-          <Box>
-            {onDelete && (
-              <IconButton size="small" color="error" onClick={() => onDelete(task.id)}>
-                <DeleteIcon />
-              </IconButton>
-            )}
-          </Box>
+
         </Box>
       </CardContent>
     </Card>

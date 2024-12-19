@@ -39,6 +39,7 @@ export const paginationState = atom<PaginationParams>({
     limit: 10,
     sortBy: 'creationTime',
     sortOrder: 'desc',
+    totalPages: 1
   },
 });
 

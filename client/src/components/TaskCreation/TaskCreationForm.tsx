@@ -12,10 +12,12 @@ import {
   IconButton,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import { Add as AddIcon, Clear as ClearIcon } from '@mui/icons-material';
+import { Add as AddIcon, Clear as ClearIcon, ShowChart } from '@mui/icons-material';
 import { CreateTaskDto, TaskPriority, TaskStatus } from '../../types/task';
 import { useTasks } from '../../hooks/useTasks';
 import { addDays } from '../../utils/date';
+import { TASK_PRIORITIES } from '../../constants/task';
+import { useNotification } from '../../hooks/useNotification';
 
 const initialFormState: CreateTaskDto = {
   title: '',
@@ -31,8 +33,8 @@ const TaskCreationForm: React.FC = () => {
   const [formData, setFormData] = useState<CreateTaskDto>(initialFormState);
   const [tagInput, setTagInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const { createTask } = useTasks();
-
+  const { createTask, refreshTasks } = useTasks();
+  const { showSuccess, showError } = useNotification();
   const handleChange = (field: keyof CreateTaskDto) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -67,9 +69,13 @@ const TaskCreationForm: React.FC = () => {
     setLoading(true);
     try {
       await createTask(formData);
+      showSuccess('Task created successfully');
       setFormData(initialFormState);
+      setTagInput('');
+      refreshTasks();
     } catch (error) {
       console.error('Failed to create task:', error);
+      showError('Failed to create task');
     } finally {
       setLoading(false);
     }
@@ -113,7 +119,7 @@ const TaskCreationForm: React.FC = () => {
             onChange={handleChange('priority')}
             fullWidth
           >
-            {['Low', 'Medium', 'High'].map((priority) => (
+            {TASK_PRIORITIES.map((priority) => (
               <MenuItem key={priority} value={priority}>
                 {priority}
               </MenuItem>

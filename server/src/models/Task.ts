@@ -16,12 +16,12 @@ export class TaskModel {
 
   static async findById(id: string, userId: string): Promise<Task | null> {
     const db = await this.getDb();
-    return db.getTasks().find(task => task.id === id 
+    return db.getTasks().find(task => task.id === id
       // && task.userId === userId
     ) || null;
   }
 
-  static async create(data: CreateTaskDto 
+  static async create(data: CreateTaskDto
     // & { userId: string }
   ): Promise<Task> {
     const db = await this.getDb();
@@ -40,10 +40,13 @@ export class TaskModel {
     return newTask;
   }
 
-  static async update(id: string, userId: string, data: UpdateTaskDto): Promise<Task> {
+  static async update(id: string,
+    //  userId: string,
+    data: UpdateTaskDto
+  ): Promise<Task> {
     const db = await this.getDb();
     const tasks = db.getTasks();
-    const taskIndex = tasks.findIndex(task => task.id === id 
+    const taskIndex = tasks.findIndex(task => task.id === id
       // && task.userId === userId
     );
 
@@ -63,10 +66,13 @@ export class TaskModel {
     return updatedTask;
   }
 
-  static async delete(id: string, userId: string): Promise<void> {
+  static async delete(
+    id: string,
+    // userId: string
+  ): Promise<void> {
     const db = await this.getDb();
     const tasks = db.getTasks();
-    const filteredTasks = tasks.filter(task => !(task.id === id 
+    const filteredTasks = tasks.filter(task => !(task.id === id
       // && task.userId === userId
     ));
 

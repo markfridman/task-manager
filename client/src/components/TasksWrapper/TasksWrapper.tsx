@@ -9,11 +9,8 @@ import { useTasks } from '../../hooks/useTasks';
 
 const TaskWrapper: React.FC = () => {
   const { 
-    tasks, 
     loading, 
-    error, 
-    pagination: { totalPages, totalItems },
-    deleteTask
+
   } = useTasks();
 
   return (
@@ -30,18 +27,9 @@ const TaskWrapper: React.FC = () => {
         {/* Task List Column */}
         <Grid item xs={12} md={8}>
           <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 2 }}>
-            <TaskList 
-              tasks={tasks}
-              loading={loading}
-              error={error}
-              deleteTask={deleteTask}
-            />
+            <TaskList />
             <Box mt={2}>
-              <Pagination 
-                totalPages={totalPages}
-                totalItems={totalItems}
-                loading={loading}
-              />
+              <Pagination />
             </Box>
           </Box>
         </Grid>

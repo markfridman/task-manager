@@ -14,20 +14,13 @@ import {
   LastPage,
 } from '@mui/icons-material';
 import { paginationState } from '../recoil/atoms';
+import { useTasks } from '../hooks/useTasks';
 
-interface PaginationProps {
-  totalPages: number;
-  totalItems: number;
-  loading?: boolean;
-}
 
-const Pagination: React.FC<PaginationProps> = ({
-  totalPages,
-  totalItems,
-  loading = false
-}) => {
+const Pagination: React.FC = () => {
+
   const [pagination, setPagination] = useRecoilState(paginationState);
-
+  const { loading, pagination: { totalPages, totalItems } } = useTasks()
   const handlePageChange = (newPage: number) => {
     setPagination(prev => ({ ...prev, page: newPage }));
   };

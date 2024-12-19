@@ -88,7 +88,7 @@ export class TaskController {
       const task = await this.taskService.updateTask(
         req.params.id,
         req.body,
-        req.user!.id
+        // req.user!.id
       );
       res.json({ success: true, data: task });
     } catch (error) {
@@ -102,7 +102,10 @@ export class TaskController {
     next: NextFunction
   ) => {
     try {
-      await this.taskService.deleteTask(req.params.id, req.user!.id);
+      await this.taskService.deleteTask(
+        req.params.id, 
+        // req.user!.id
+      );
       res.status(204).send();
     } catch (error) {
       next(error);
