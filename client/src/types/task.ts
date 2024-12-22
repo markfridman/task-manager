@@ -1,5 +1,4 @@
-export type TaskStatus = 'To Do' | 'In Progress' | 'Completed';
-export type TaskPriority = 'Low' | 'Medium' | 'High' | 'Critical';
+import { TaskStatus, TaskPriority } from '../../../client/src/constants/task';
 
 export interface Task {
   id: string;

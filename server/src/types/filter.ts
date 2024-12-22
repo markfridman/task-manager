@@ -1,4 +1,4 @@
-import { TaskPriority, TaskStatus } from "./task";
+import { TaskPriority, TaskStatus } from "../constants/task";
 
 export interface TaskFilters {
   status?: TaskStatus;

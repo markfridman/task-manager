@@ -1,4 +1,4 @@
-import { TaskStatus, TaskPriority } from '../../../client/src/constants/task';
+import { TaskStatus, TaskPriority } from '../../src/constants/task';
 
 export interface Task {
   id: string;

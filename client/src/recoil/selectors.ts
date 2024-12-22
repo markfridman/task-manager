@@ -35,6 +35,7 @@ export const filteredTasksSelector = selector({
 
     // Apply sorting
     if (sortBy) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       filteredTasks.sort((a: any, b: any) => {
         const aValue = a[sortBy];
         const bValue = b[sortBy];

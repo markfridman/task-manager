@@ -4,12 +4,12 @@ import {
   CardContent,
   Typography,
   Chip,
-  IconButton,
   Box,
   Stack,
 } from '@mui/material';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+
 import { Task } from '../../types/task';
+import { TaskPriority } from "../../constants/task";
 
 export interface TaskItemProps {
   task: Task;
@@ -17,7 +17,7 @@ export interface TaskItemProps {
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, onSelect }) => {
-  const getPriorityColor = (priority: string) => {
+  const getPriorityColor = (priority: TaskPriority) => {
     switch (priority) {
       case 'High': return 'error';
       case 'Medium': return 'warning';
@@ -47,7 +47,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onSelect }) => {
               <Chip
                 size="small"
                 label={task.priority}
-                color={getPriorityColor(task.priority) as any}
+                color={getPriorityColor(task.priority)}
               />
               <Typography variant="caption" color="text.secondary">
                 Due: {new Date(task.dueDate).toLocaleDateString()}

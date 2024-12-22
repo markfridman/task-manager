@@ -37,9 +37,9 @@ const TaskWrapper: React.FC = () => {
             <Box sx={{ bgcolor: 'background.paper', borderRadius: 1, p: 2 }}>
               <TaskList />
             </Box>
-            {/* Task Creation Form Column */}
           </Grid>
           <Grid item xs={12} md={4}>
+            {/* Task Creation Form Column */}
             <TaskCreationForm />
           </Grid>
         </Grid>

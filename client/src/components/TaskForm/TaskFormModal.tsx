@@ -15,9 +15,9 @@ import {
 import { DatePicker } from '@mui/x-date-pickers';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedTaskIdState, tasksState } from '../../recoil/atoms';
-import { TaskPriority, TaskStatus, UpdateTaskDto } from '../../types/task';
+import { UpdateTaskDto } from '../../types/task';
 import { useTasks } from '../../hooks/useTasks';
-import { TASK_PRIORITIES, TASK_STATUSES } from '../../constants/task';
+import { TASK_PRIORITIES, TASK_STATUSES,  TaskPriority, TaskStatus, } from '../../constants/task';
 import { useNotification } from '../../hooks/useNotification';
 
 const statusOptions: TaskStatus[] = TASK_STATUSES;

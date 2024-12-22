@@ -18,7 +18,7 @@ import {
 } from '@mui/icons-material';
 import { DatePicker } from '@mui/x-date-pickers';
 import { taskFiltersState, paginationState } from '../../recoil/atoms';
-import { TaskStatus, TaskPriority } from '../../types/task';
+import { TaskStatus, TaskPriority } from '../../constants/task';
 import { useDebounce } from '../../hooks/useDebounce';
 import { TASK_PRIORITIES, TASK_STATUSES } from '../../constants/task';
 
@@ -43,7 +43,8 @@ const TaskFilters: React.FC<TaskFiltersProps> = ({ loading = false }) => {
   // Effect for debounced search
   useEffect(() => {
     setFilters(prev => ({ ...prev, search: debouncedSearch || undefined }));
-  }, [debouncedSearch, setFilters]);
+    setPagination(prev => ({ ...prev, page: 1 }));
+  }, [debouncedSearch, setFilters, setPagination]);
 
   const handleFilterChange = (field: string) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -67,6 +68,7 @@ const TaskFilters: React.FC<TaskFiltersProps> = ({ loading = false }) => {
     setPagination(prev => ({
       ...prev,
       sortBy: event.target.value,
+      page: 1
     }));
   };
 
@@ -206,6 +208,7 @@ const TaskFilters: React.FC<TaskFiltersProps> = ({ loading = false }) => {
             value={pagination.sortOrder}
             onChange={(e) => setPagination(prev => ({
               ...prev,
+              page: 1,
               sortOrder: e.target.value as 'asc' | 'desc',
             }))}
           >
