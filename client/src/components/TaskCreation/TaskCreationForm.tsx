@@ -12,8 +12,8 @@ import {
   IconButton,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import { Add as AddIcon, Clear as ClearIcon, ShowChart } from '@mui/icons-material';
-import { CreateTaskDto, TaskPriority, TaskStatus } from '../../types/task';
+import { Add as AddIcon } from '@mui/icons-material';
+import { CreateTaskDto } from '../../types/task';
 import { useTasks } from '../../hooks/useTasks';
 import { addDays } from '../../utils/date';
 import { TASK_PRIORITIES } from '../../constants/task';

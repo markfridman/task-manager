@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import {
   Box,
@@ -24,7 +24,9 @@ const Pagination: React.FC = () => {
   const handlePageChange = (newPage: number) => {
     setPagination(prev => ({ ...prev, page: newPage }));
   };
-
+  useEffect(() => {
+    console.log('Pagination changed:', pagination);
+  }, [totalPages, totalItems])
   return (
     <Box
       sx={{

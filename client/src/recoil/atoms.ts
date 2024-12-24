@@ -43,6 +43,14 @@ export const paginationState = atom<PaginationParams>({
   },
 });
 
+export const taskPaginationInfoState = atom({
+  key: 'taskPaginationInfoState',
+  default: {
+    totalPages: 0,
+    totalItems: 0
+  }
+});
+
 export const selectedTaskIdState = atom<string | null>({
   key: 'selectedTaskIdState',
   default: null,
